@@ -1,0 +1,28 @@
+# The conda environment created from this file includes a complete CUDA development environment
+# (cuda-toolkit provides nvcc and other build tools as well as the CUDA runtime).
+# Only the NVIDIA driver needs to be installed on the system; no system-wide CUDA installation is required.
+# CUDA extensions in submodules can be compiled directly without extra configuration.
+name: gs-cp310-torch1.13.1-cuda11.7
+channels:
+  - nvidia/label/cuda-11.7.1
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch::pytorch==1.13.1
+  - pytorch::torchvision==0.14.1
+  - pytorch::torchaudio==0.13.1
+  - pytorch::pytorch-cuda=11.7
+  - conda-forge::plyfile
+  - conda-forge::tqdm
+  - numpy<2
+  # Installs CUDA runtime and development tools locally; no system-wide CUDA installation needed
+  - nvidia/label/cuda-11.7.1::cuda-toolkit # Provides CUDA development toolkit
+  - conda-forge::compilers==1.5.2 # Provides gcc/g++ compatible with nvcc
+  - pip:
+      # These submodules can be compiled directly, no pre-installed CUDA required
+      - submodules/diff-gaussian-rasterization
+      - submodules/simple-knn
+      - submodules/fused-ssim
+      - opencv-python
+      - joblib
